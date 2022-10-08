@@ -1,10 +1,13 @@
+import { Box } from "@mui/material";
 import type { NextPage } from "next";
-import { Header } from "../components";
+import { List } from "../components";
 
 const Home: NextPage = () => {
   return (
     <>
-      <p>home</p>
+      <Box sx={{ backgroundColor: "secondary.main" }}>
+        <List />
+      </Box>
     </>
   );
 };
