@@ -1,29 +1,46 @@
 import { Button } from "@mui/material";
-import Image from "next/image";
+import { ITeacher } from "../../@types";
 import { StyledItem, StyledList } from "./styles";
 
-export function List() {
-  return (
-    <StyledList>
-      <StyledItem>
-        <div className="img">
-          <img
-            src="https://avatars.githubusercontent.com/u/83153592?v=4"
-            alt="teacher profile"
-          />
-        </div>
+interface IList {
+  teachers?: ITeacher[];
+}
 
-        <div>
-          <p className="name">Nairo Mudumane</p>
-          <p className="price">USD 100.00 p/hour</p>
-          <p className="description">Programing lessons</p>
-        </div>
-        <div>
-          <Button variant="contained" sx={{ px: "4rem" }}>
-            Learn
-          </Button>
-        </div>
-      </StyledItem>
-    </StyledList>
+interface Item {
+  item: ITeacher;
+}
+
+const Item = ({ item }: Item) => {
+  return (
+    <StyledItem>
+      <div className="img">
+        <img src={item.picture} alt={`${item.name}'s picture`} />
+      </div>
+
+      <div>
+        <p className="name">{item.name}</p>
+        <p className="price">USD {item.price_by_hour} p/hour</p>
+        <p className="description">{item.description}</p>
+      </div>
+      <div>
+        <Button variant="contained" sx={{ px: "4rem" }}>
+          Learn
+        </Button>
+      </div>
+    </StyledItem>
   );
+};
+
+export function List(props: IList) {
+  if (props.teachers) {
+    return (
+      <StyledList>
+        {props.teachers.map((item) => (
+          <Item key={item.id} item={item} />
+        ))}
+      </StyledList>
+    );
+  }
+
+  return <StyledList>no teachers!</StyledList>;
 }
